@@ -1,0 +1,1 @@
+insert into smart_phone values(101,'IPHONE','iphone X',700);
