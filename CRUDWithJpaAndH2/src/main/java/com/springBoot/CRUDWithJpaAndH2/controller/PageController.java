@@ -1,6 +1,7 @@
 package com.springBoot.CRUDWithJpaAndH2.controller;
 
 import java.util.Iterator;
+import java.util.List;
 
 import javax.websocket.server.PathParam;
 
@@ -66,7 +67,7 @@ public class PageController
 	}
 
 	@RequestMapping("/update")
-	public String updatePrice(@PathParam(value = "price") int price, @PathParam(value = "id") int id)
+	public String updatePrice(int price, int id)
 	{
 		smartPhoneRepo.updatePrice(price, id);
 		System.out.println(String.valueOf(id) + " is updated");
@@ -78,5 +79,18 @@ public class PageController
 	{
 		ModelAndView mv = new ModelAndView("updatePrice");
 		return mv;
+	}
+
+	@RequestMapping("/findByPrice/{price}")
+	public void findByPrice(@PathVariable(value = "price") int price)
+	{
+		System.out.println("Under findByprice and price is " + price);
+		List<SmartPhone> sortedByPrice = smartPhoneRepo.findByPrice(price);
+		for (SmartPhone byPrice : sortedByPrice)
+		{
+			System.out.println(
+					byPrice.getId() + " " + byPrice.getBrand() + " " + byPrice.getModel() + " " + byPrice.getPrice());
+		}
+
 	}
 }

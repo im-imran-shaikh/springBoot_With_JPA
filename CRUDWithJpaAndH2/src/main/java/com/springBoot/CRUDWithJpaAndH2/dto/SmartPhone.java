@@ -13,7 +13,16 @@ public class SmartPhone
 	private String brand;
 	private String model;
 	private int price;
+	private String spec;
 	
+	public String getSpec()
+	{
+		return spec;
+	}
+	public void setSpec(String spec)
+	{
+		this.spec = spec;
+	}
 	public int getId()
 	{
 		return Id;

@@ -9,9 +9,10 @@
 <body>
 	<form action="addSmartPhone">
 		<!--  ID <input type = "text" name = "id"><br> -->
-		Brand <input type = "text" name = "brand"><br>
-		Model <input type = "text" name = "model"><br>
-		Price <input type = "text" name = "price"><br>
+		Brand  <input type = "text" name = "brand"><br>
+		Model  <input type = "text" name = "model"><br>
+		Price  <input type = "text" name = "price"><br>
+		Spec  <input type = "text" name = "spec"><br>
 		<input type = "Submit" value = "Add">
 	</form>
 </body>
