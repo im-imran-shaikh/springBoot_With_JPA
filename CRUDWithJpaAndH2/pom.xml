@@ -55,13 +55,12 @@
 			<version>9.0.17</version>
 		</dependency>
 
+		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.3.9.Final</version>
 		</dependency>
-
-
 
 	</dependencies>
 

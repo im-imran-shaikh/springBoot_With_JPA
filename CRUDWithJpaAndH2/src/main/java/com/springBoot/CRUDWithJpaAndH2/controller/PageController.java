@@ -2,11 +2,11 @@ package com.springBoot.CRUDWithJpaAndH2.controller;
 
 import java.util.Iterator;
 import java.util.List;
-
-import javax.websocket.server.PathParam;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,9 +16,9 @@ import com.springBoot.CRUDWithJpaAndH2.dto.SmartPhone;
 
 @Controller
 public class PageController
-{
+{	
 	@Autowired
-	SmartPhoneRepository smartPhoneRepo;
+	private SmartPhoneRepository smartPhoneRepo;
 
 	@RequestMapping(
 	{ "/", "/home" })
@@ -67,11 +67,15 @@ public class PageController
 	}
 
 	@RequestMapping("/update")
-	public String updatePrice(int price, int id)
+	public String updatePrice(int price, int id, Model model)
 	{
+		Optional<SmartPhone> smartPhone = smartPhoneRepo.findById(id);
+		model.addAttribute("OldPrice",smartPhone.get().getPrice());
 		smartPhoneRepo.updatePrice(price, id);
 		System.out.println(String.valueOf(id) + " is updated");
-		return String.valueOf(id) + " is updated";
+		model.addAttribute("id", id);
+		model.addAttribute("price", price);
+		return "UpdatedPrice";
 	}
 
 	@RequestMapping("/updatePrice")
@@ -91,6 +95,30 @@ public class PageController
 			System.out.println(
 					byPrice.getId() + " " + byPrice.getBrand() + " " + byPrice.getModel() + " " + byPrice.getPrice());
 		}
+	}
 
+	@RequestMapping("/updateBrand")
+	public ModelAndView updateBrand()
+	{
+		ModelAndView mv = new ModelAndView("UpdateBrand");
+		return mv;
+	}
+
+	@RequestMapping("/updatedBrand") 
+	public ModelAndView updateBrand(String brand, int Id)
+	{
+		System.out.println("ID : " + Id + " brand : " + brand);
+		ModelAndView mv = new ModelAndView("UpdatedBrand");
+		
+		mv.addObject("id", Id);
+		
+		Optional<SmartPhone> smartPhone = smartPhoneRepo.findById(Id);
+		mv.addObject("brand",smartPhone.get().getBrand());
+		
+		if (Id != 0 && brand != null)
+			smartPhoneRepo.updateBrand(brand, Id);
+		
+		mv.addObject("brandReplaced",brand);
+		return mv;
 	}
 }

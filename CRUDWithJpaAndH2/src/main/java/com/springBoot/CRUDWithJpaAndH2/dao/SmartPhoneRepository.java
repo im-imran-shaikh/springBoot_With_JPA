@@ -18,6 +18,10 @@ public interface SmartPhoneRepository extends CrudRepository<SmartPhone, Integer
 	@Transactional
 	void updatePrice(int Id, int price);
 	
-
 	List<SmartPhone> findByPrice(int price);
+	
+	@Modifying
+	@Query("UPDATE SmartPhone SET brand = ?1 WHERE Id = ?2")
+	@Transactional
+	void updateBrand(String brand, int Id);
 }
